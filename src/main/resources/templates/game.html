@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<!--<title th:text="${gameQueried.getGameName()}"></title>-->
+		<title th:text="${gameQueried.gameName}"></title>
 	</head>
 	<body>
 		<nav id="nav-bar">
@@ -19,6 +19,11 @@
 	<tr>
 		<td colspan="3" th:text="${gameQueried.getDescriptionShort()}"></td>
 	</tr>
+</table>
+<table th:each="review:${gameQueried.reviews}">
+  <tr>
+	  <td th:text="${review.author}"></td>
+	  <td th:text="${review.content}"></td>
 </table>
 			</section>
 		</article>

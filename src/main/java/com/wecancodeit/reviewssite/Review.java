@@ -3,6 +3,7 @@ package com.wecancodeit.reviewssite;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -11,6 +12,7 @@ class Review {
   @Id
   long id;
   String author;
+  @Lob
   String content = "";
   String reviewTitle;
   @ManyToOne
