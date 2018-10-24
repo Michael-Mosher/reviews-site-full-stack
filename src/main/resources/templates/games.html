@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Game On</title>
+	</head>
+	<body>
+		<main id="container">
+                    <nav id="nav-bar">
+			    <ol>
+				    <li><a href="">HOME</a></li>
+				    <li><a href="">SEARCH</a></li>
+			    </ol>
+			    <div id="nav-subbar">
+				    <ol th:each="game:${gamesQueried}">
+					    <li><a th:href="@{/game(gameId=${game.getId()})}" th:text="${game.getGameName()}"></a></li>
+				    </ol>
+			    </div>
+		    </nav>
+
+				    <article id="main" th:each="g:${gamesQueried}">
+					    <section class="game-entry">
+						    <a th:href="@{/game(gameId=${g.getId()})}">
+							    <img th:src="@{'/images/'+${g.imageUrl}}"></a><a th:href="@{/game(gameId=${g.getId()})}" th:text="${g.getGameName()}"></a>
+					    </section>
+				    </article>
+		</main>
