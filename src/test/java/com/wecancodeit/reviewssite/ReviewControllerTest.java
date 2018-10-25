@@ -57,6 +57,8 @@ public class ReviewControllerTest {
 	long lGameId = 1;
 	when(gameRepo.findById(lGameId)).thenReturn(
 			Optional.of(oGameMockOne));
+//	when(gameRepo.findById(lGameId)).thenReturn(
+//			Arrays.asList(oTagMockOne, oTagMockTwo));
 	oControllerTested.findOneGame(lGameId, oMockModel);
 	verify(oMockModel).addAttribute("gameQueried", oGameMockOne);
   }

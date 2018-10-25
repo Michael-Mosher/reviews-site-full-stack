@@ -12,18 +12,22 @@
 		</nav>
 		<article id="main">
 			<section class="game-entry">
-<table id="game-table">
-	<tr>
-	    <td><img th:src="@{'/images/' + ${gameQueried.getImageUrl()}}"></td><td colspan="2" th:text="${gameQueried.getGameName()}"></td>
-	</tr>
-	<tr>
-		<td colspan="3" th:text="${gameQueried.getDescriptionShort()}"></td>
-	</tr>
-</table>
-<table th:each="review:${gameQueried.reviews}">
-  <tr>
-	  <td th:text="${review.author}"></td>
-	  <td th:text="${review.content}"></td>
-</table>
+                            <table id="game-table">
+	                        <tr>
+	                            <td><img th:src="@{'/images/' + ${gameQueried.getImageUrl()}}"></td><td colspan="2" th:text="${gameQueried.getGameName()}"></td>
+	                       </tr>
+	                       <tr>
+		                   <td colspan="3" th:text="${gameQueried.getDescriptionShort()}"></td>
+	                       </tr>
+                            </table>
+			    <div th:each="t:${associatedTags}">
+				    <p th:text="${t.tag}"></p>
+			    </div>
+                            <!--<table th:each="review:${gameQueried.reviews}">
+                                <tr>
+	                            <td th:text="${review.author}"></td>
+	                            <td th:text="${review.content}"></td>
+				</tr>
+			    </table>-->
 			</section>
 		</article>

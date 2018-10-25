@@ -38,7 +38,9 @@ class ReviewsiteController {
 	  if(game.isPresent()){
 		model.addAttribute("gameQueried", game.get());
 		Collection<Tag> oAssociatedTags = oTagRepository.findByGamesContains(game.get());
+		Collection<Review> oAssociatedReview = game.get().getReviews();
 		model.addAttribute("associatedTags", oAssociatedTags);
+		model.addAttribute("associatedReviews", oAssociatedReview);
 		return "game";
 	  } else {
 		  throw new GameNotFoundException();
