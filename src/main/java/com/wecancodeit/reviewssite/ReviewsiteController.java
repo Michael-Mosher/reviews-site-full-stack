@@ -17,6 +17,7 @@ class ReviewsiteController {
   IGameRepository oGameRepository;
   @Resource
   ITagRepository oTagRepository;
+  
 //  @RequestMapping("/reviews")
 //  public String findAllReviews(Model model)
 //  {
@@ -38,7 +39,7 @@ class ReviewsiteController {
 	  if(game.isPresent()){
 		model.addAttribute("gameQueried", game.get());
 		Collection<Tag> oAssociatedTags = oTagRepository.findByGamesContains(game.get());
-		Collection<Review> oAssociatedReview = game.get().getReviews();
+		Collection<Review> oAssociatedReview = oReviewRepository.findByGameContains(game.get());
 		model.addAttribute("associatedTags", oAssociatedTags);
 		model.addAttribute("associatedReviews", oAssociatedReview);
 		return "game";
@@ -84,5 +85,29 @@ class ReviewsiteController {
 	Collection<Tag> oQueryResult = (Collection<Tag>) oTagRepository.findAll();
 	model.addAttribute("tagsQueried", oQueryResult);
 	return "tags";
+  }
+
+  @RequestMapping("/search-by-tag-name")
+  public String findGamesByTag(Tag tagSought, Model model)
+  {
+	Collection<Game> oQueryResult = (Collection<Game>)oGameRepository.findByTagsContains(tagSought);
+	model.addAttribute("gamesQueried", oQueryResult);
+	return "games";
+  }
+
+  @RequestMapping("/search-by-game")
+  public String findTagsByGame(Game gameSought, Model model)
+  {
+	Collection<Tag> oQueryResult = (Collection<Tag>)oTagRepository.findByGamesContains(gameSought);
+	model.addAttribute("tagsQueried", oQueryResult);
+	return "tags";
+  }
+
+  @RequestMapping("/get-game-reviews")
+  public String findReviewsByGame(Game gameParent, Model model)
+  {
+	Collection<Review> oQueryResult = oReviewRepository.findByGameContains(gameParent);
+	model.addAttribute("reviewsQueried", oQueryResult);
+	return "reviews";
   }
 }

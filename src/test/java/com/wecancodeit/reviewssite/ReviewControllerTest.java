@@ -91,44 +91,30 @@ public class ReviewControllerTest {
 	verify(oMockModel).addAttribute("tagsQueried", oExpectedCollection);
   }
   
-/*  @Test
-  public void shouldBeOkForAllReviews() throws Exception
+  @Test
+  public void shouldAddGamesByTag()
   {
-	mvc.perform(get("/reviews")).andExpect(status().isOk());
+	Collection<Game> oExpectedCollection = Arrays.asList(oGameMockOne);
+	when(gameRepo.findByTagsContains(oTagMockOne)).thenReturn(oExpectedCollection);
+	oControllerTested.findGamesByTag(oTagMockOne, oMockModel);
+	verify(oMockModel).addAttribute("gamesQueried", oExpectedCollection);
   }
   
   @Test
-  public void shouldPutAllReviewsIntoModel() throws Exception
+  public void shouldAddTagsByGame()
   {
-	Collection<Review> oReviewCollection = asList(firstReview, secondReview);
-	when(reviewRepo.getAllEntries()).thenReturn(oReviewCollection);
-	mvc.perform(get("/reviews")).andExpect(model().attribute("reviewsQueried", is(oReviewCollection)));
+	Collection<Tag> oExpectedCollection = Arrays.asList(oTagMockOne);
+	when(tagRepo.findByGamesContains(oGameMockOne)).thenReturn(oExpectedCollection);
+	oControllerTested.findTagsByGame(oGameMockOne, oMockModel);
+	verify(oMockModel).addAttribute("tagsQueried", oExpectedCollection);
   }
-  
-//  @Test
-//  public void shouldPutReviewId100IntoModel() throws Exception
-//  {
-//	mvc.perform(get("/review?reviewId=100")).andExpect(status().isOk());
-//  }
-  
+
   @Test
-  public void shouldRouteToSingleReviewView() throws Exception
+  public void shouldAddReviewsByGame()
   {
-	when(reviewRepo.getEntry(100)).thenReturn(firstReview);
-	mvc.perform(get("/review?reviewId=100")).andExpect(view().name(is("review")));
+	Collection<Review> oExpectedCollection = Arrays.asList(oReviewMockOne);
+	when(reviewRepo.findByGameContains(oGameMockOne)).thenReturn(oExpectedCollection);
+	oControllerTested.findReviewsByGame(oGameMockOne, oMockModel);
+	verify(oMockModel).addAttribute("reviewsQueried", oExpectedCollection);
   }
-  
-  @Test
-  public void shouldPutSingleReviewIntoModel() throws Exception
-  {
-	when(reviewRepo.getEntry(101)).thenReturn(secondReview);
-	mvc.perform(get("/review?reviewId=101")).andExpect(model().attribute("review", is(secondReview)));
-  }
-  
-  @Test
-  public void shouldNotPutSingleReviewIntoModel() throws Exception
-  {
-	when(reviewRepo.getEntry(500L)).thenReturn(secondReview);
-    mvc.perform(get("/review?reviewId=500")).andExpect(model().attribute("reivew", is(nullValue())));
-  }*/
 }
