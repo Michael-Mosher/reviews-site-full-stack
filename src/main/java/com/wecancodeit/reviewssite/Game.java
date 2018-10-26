@@ -86,4 +86,9 @@ public boolean equals(Object obj) {
 		return false;
 	return true;
 }
+
+  public Collection<Tag> getTags()
+  {
+    return this.tags;
+  }
 }

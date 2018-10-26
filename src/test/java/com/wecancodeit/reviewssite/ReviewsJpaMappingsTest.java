@@ -17,6 +17,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.jayway.jsonpath.Option;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
 public class ReviewsJpaMappingsTest {
@@ -106,5 +108,20 @@ public class ReviewsJpaMappingsTest {
 	assertThat(oGamesForFirstTag, containsInAnyOrder(oFirstGame, oSecondGame));
 	Collection<Game> oGamesForSecondTag = gameRepo.findByTagsId(lSecondTag);
 	assertThat(oGamesForSecondTag, containsInAnyOrder(oFirstGame));
+  }
+  
+  @Test
+  public void shouldConfirmGameToTagsRelationship()
+  {
+	Tag oFirstTag = tagRepo.save(new Tag("FPS"));
+    Tag oSecondTag = tagRepo.save(new Tag("female protagonist"));
+	Game oFirstGame = gameRepo.save(new Game("Game Name", "Game description",  "dis2.jpg", oSecondTag, oFirstTag));
+	Game oSecondGame = gameRepo.save(new Game("Another Name", "better description", "skyrim.jpg", oFirstTag));
+	long lFirstGameId = oFirstGame.getId();
+	entityManager.flush();
+	entityManager.clear();
+	Optional<Game> oOptionalGame = gameRepo.findById(lFirstGameId);
+	oFirstGame = oOptionalGame.get();
+	assertThat(oFirstGame.getTags(), containsInAnyOrder(oFirstTag, oSecondTag));
   }
 }

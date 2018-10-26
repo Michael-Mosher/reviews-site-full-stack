@@ -13,8 +13,8 @@ class Review {
   long id;
   String author;
   @Lob
-  String content = "";
-  String reviewTitle;
+  String content;
+  String reviewTitle = "";
   @ManyToOne
   private Game game;
 
@@ -56,6 +56,33 @@ class Review {
 //			}
 //		}
 //	}
+
+	/**
+ * @return the author
+ */
+public String getAuthor() {
+	return author;
+}
+
+/**
+ * @return the content
+ */
+public String getContent() {
+	return content;
+}
+
+/**
+ * @return the reviewTitle
+ */
+public String getReviewTitle() {
+	return reviewTitle;
+}
+/**
+ * @return the game
+ */
+public Game getGame() {
+	return game;
+}
 
 	@Override
 	public int hashCode()

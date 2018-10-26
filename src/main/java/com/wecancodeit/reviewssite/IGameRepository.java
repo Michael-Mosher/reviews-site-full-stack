@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 interface IGameRepository extends CrudRepository<Game, Long>
 {
   Collection<Game> findByTagsContains(Tag tag);
-  Collection<Game> findByTagsId(long lFirstTag);
+  Collection<Game> findByTagsId(long lTagId);
 }

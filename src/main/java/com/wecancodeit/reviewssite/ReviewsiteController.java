@@ -38,10 +38,10 @@ class ReviewsiteController {
 	  Optional<Game> game = oGameRepository.findById(lGameId);
 	  if(game.isPresent()){
 		model.addAttribute("gameQueried", game.get());
-		Collection<Tag> oAssociatedTags = oTagRepository.findByGamesContains(game.get());
-		Collection<Review> oAssociatedReview = oReviewRepository.findByGameContains(game.get());
-		model.addAttribute("associatedTags", oAssociatedTags);
-		model.addAttribute("associatedReviews", oAssociatedReview);
+  		Collection<Tag> oAssociatedTags = oTagRepository.findByGamesContains(game.get());
+//		Collection<Review> oAssociatedReview = oReviewRepository.findByGame(game.get());
+  		model.addAttribute("associatedTags", oAssociatedTags);
+//		model.addAttribute("associatedReviews", oAssociatedReview);
 		return "game";
 	  } else {
 		  throw new GameNotFoundException();
@@ -106,7 +106,7 @@ class ReviewsiteController {
   @RequestMapping("/get-game-reviews")
   public String findReviewsByGame(Game gameParent, Model model)
   {
-	Collection<Review> oQueryResult = oReviewRepository.findByGameContains(gameParent);
+	Collection<Review> oQueryResult = oReviewRepository.findByGame(gameParent);
 	model.addAttribute("reviewsQueried", oQueryResult);
 	return "reviews";
   }
